@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Observação de aula</title>
+<style>
+:root{--fundo:#f7f8fb;--papel:#fff;--tinta:#3a3b4d;--suave:#6b6d80;--linha:#dfe2ea;--acento:#e8173f;--acento-escuro:#c40f33;--marinho:#2b2a74;--marinho-fundo:#2d2c70;--leve:#1d7a45;--leve-bg:#d8f6dd;--media:#8a5a00;--media-bg:#fef1c4;--erro:#d3122f;--sombra:0 6px 24px rgba(43,42,116,.08);
+--ok:var(--leve);--wr:var(--media);--er:var(--erro);color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--fundo);color:var(--tinta);font:400 15px/1.5 'Poppins',system-ui,-apple-system,'Segoe UI',sans-serif}
+.topo{background:#fff;box-shadow:0 2px 14px rgba(43,42,116,.08);border-top:4px solid var(--acento)}
+.topo-in{max-width:1000px;margin:0 auto;padding:14px 16px;font-weight:600;color:var(--marinho)}
+main{max-width:1000px;margin:0 auto;padding:32px 16px 72px}
+.topo img{display:block;height:32px;width:auto}
+.tip{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--marinho);color:#fff;font-size:11px;font-weight:700;font-style:normal;line-height:1;margin-left:6px;position:relative;cursor:help;vertical-align:middle}
+.tip .tt{display:none;position:absolute;left:-8px;bottom:calc(100% + 8px);width:270px;max-width:72vw;background:var(--marinho-fundo);color:#fff;font-size:.8125rem;font-weight:400;line-height:1.45;padding:10px 12px;border-radius:8px;z-index:10;box-shadow:var(--sombra);text-align:left;white-space:normal}
+.tip:hover .tt,.tip:focus .tt{display:block}
+.hero{background:var(--marinho-fundo);color:#fff;border-radius:16px;padding:28px 32px;margin:0 0 24px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:-40px;top:-60px;width:260px;height:260px;border-radius:50%;border:36px solid rgba(255,255,255,.05);pointer-events:none}
+h1{font-size:1.75rem;font-weight:700;line-height:1.2;margin:0 0 6px;letter-spacing:-.01em}
+.sub{margin:0;color:rgba(255,255,255,.85);font-size:1rem}
+h2{font-size:1.125rem;font-weight:600;color:var(--marinho);margin:0 0 14px}
+section{background:var(--papel);border:1px solid var(--linha);border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:var(--sombra)}
+label{display:block;font-size:.8125rem;font-weight:500;color:var(--marinho);margin-bottom:6px}
+input,textarea{width:100%;font:inherit;color:var(--tinta);background:#fff;border:1px solid var(--linha);border-radius:8px;padding:11px 14px;transition:border-color .15s,box-shadow .15s}
+input::placeholder,textarea::placeholder{color:#9a9cad}
+textarea{min-height:72px;resize:vertical}
+input:hover,textarea:hover{border-color:#c4c8d6}
+input:focus-visible,textarea:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid rgba(232,23,63,.25);outline-offset:1px;border-color:var(--acento)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px 14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g4>div:nth-child(4n) .tt,.g4>div:nth-child(4n-1) .tt{left:auto;right:-8px}
+@media (max-width:700px){.g3,.g4{grid-template-columns:repeat(2,1fr)}.g4>div:nth-child(2n) .tt{left:auto;right:-8px}.g4>div:nth-child(4n-1):not(:nth-child(2n)) .tt{left:-8px;right:auto}}
+input,select{height:46px}
+input[type=checkbox]{height:18px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end}.row>*{flex:1 1 140px}
+button{font:inherit;font-weight:600;cursor:pointer;border-radius:8px;border:1px solid var(--marinho);background:#fff;color:var(--marinho);padding:9px 20px;transition:background .15s,border-color .15s}
+button:hover{background:#eeeefa}
+button.p{background:var(--acento);border-color:var(--acento);color:#fff;padding:12px 28px}
+button.p:hover{background:var(--acento-escuro);border-color:var(--acento-escuro)}
+button.on{background:var(--marinho);border-color:var(--marinho);color:#fff}
+button:disabled{opacity:.5;cursor:not-allowed}
+.q{border-top:1px solid var(--linha);padding:14px 0}.q:first-of-type{border-top:0;padding-top:0}
+.q .top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.q .top strong{font-weight:600;color:var(--marinho)}
+.act{background:#eeeefa;border-radius:12px;padding:12px 14px;margin-top:10px}
+.act label.ck{display:flex;gap:10px;color:var(--tinta);font-size:.9375rem;font-weight:400;align-items:flex-start;cursor:pointer;margin:0}
+.act input[type=checkbox]{width:18px;height:18px;margin-top:4px;flex:none;accent-color:var(--acento)}
+.blk{border:1px solid var(--linha);border-radius:12px;padding:16px;margin-bottom:14px}
+.bh{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px}
+.bh .t{flex:1 1 200px}.bh .m{width:96px}
+.st{background:#eeeefa;color:var(--marinho);font-weight:600;font-size:.8125rem;border-radius:999px;padding:6px 14px;margin-bottom:6px;white-space:nowrap}
+.rk{margin-top:14px;padding-left:12px;border-left:3px solid #f2c94c}
+.rk summary{cursor:pointer;color:var(--marinho)}
+.add{margin-top:14px}
+.lk{margin-bottom:8px;align-items:center}
+.rk .r{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-top:10px}
+@media (max-width:600px){.rk .r{grid-template-columns:1fr}.hero{padding:22px 20px}h1{font-size:1.4rem}section{padding:18px}}
+.bar{height:10px;background:var(--linha);border-radius:5px;overflow:hidden;margin:6px 0}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .2s}
+.ok{color:var(--leve)}.wr{color:var(--media)}.er{color:var(--erro)}
+.hint{color:var(--suave);font-size:.8125rem;margin:0 0 10px}
+#status li{margin:3px 0}
+#pst strong{display:inline-block;border-radius:999px;padding:6px 16px;font-size:.8125rem;background:var(--media-bg)}
+#pst strong.ok{background:var(--leve-bg)}
+.bar-top{position:sticky;top:calc(env(safe-area-inset-top,0px) + 8px);z-index:5;background:#fff;border:1px solid var(--linha);border-radius:16px;padding:12px 18px;margin-bottom:20px;box-shadow:var(--sombra)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.ob{background:#eeeefa;border-radius:12px;padding:14px;margin-top:14px}
+.ob .top{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+.seg button{padding:7px 14px}
+.seg button.sim.on{background:var(--leve);border-color:var(--leve)}
+.seg button.parte.on{background:#b97a00;border-color:#b97a00}
+.seg button.nao.on{background:var(--erro);border-color:var(--erro)}
+.ob textarea{min-height:56px}
+input[readonly],textarea[readonly]{background:#f1f2f6;color:var(--suave);cursor:default}
+select{width:100%;font:inherit;color:var(--tinta);background:#fff;border:1px solid var(--linha);border-radius:8px;padding:11px 14px}
+
+.topo-in{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.gv{position:fixed;inset:0;z-index:50;background:rgba(30,30,70,.55);display:flex;align-items:center;justify-content:center;padding:16px}
+.gv-box{background:#fff;width:100%;max-width:760px;max-height:100%;border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.gv-head{background:var(--marinho-fundo);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 24px}
+.gv-head strong{font-size:1.125rem;font-weight:600}
+.gv-head button{background:transparent;color:#fff;border-color:#fff}
+.gv-head button:hover{background:rgba(255,255,255,.12)}
+.gv-body{overflow:auto;padding:20px 24px 32px;font-size:.9375rem}
+.gv-body h3{color:var(--marinho);font-size:1.0625rem;font-weight:600;margin:28px 0 8px;scroll-margin-top:8px}
+.gv-body p{margin:8px 0}.gv-body ul,.gv-body ol{margin:8px 0;padding-left:22px}.gv-body li{margin:4px 0}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}.pills button{border-radius:999px;padding:6px 14px;font-size:.8125rem}
+.callout{background:#eeeefa;border-radius:12px;padding:12px 16px;margin:14px 0}
+.mk{border:1px dashed #c4c8d6;border-radius:12px;background:#f9fafd;padding:14px;margin:12px 0}
+.fl{display:block;font-size:.75rem;font-weight:500;color:var(--marinho);margin-bottom:4px}
+.fk{border:1px solid var(--linha);background:#fff;border-radius:8px;padding:8px 12px;font-size:.8125rem;min-height:36px}
+.fk.lk{background:#f1f2f6;color:var(--suave)}
+.fg{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:8px}
+.sg{display:inline-flex;gap:6px;flex-wrap:wrap}
+.sg span{border:1px solid var(--marinho);border-radius:8px;padding:4px 12px;font-weight:600;font-size:.8125rem;color:var(--marinho);background:#fff}
+.sg .a{background:var(--leve);border-color:var(--leve);color:#fff}.sg .b{background:#b97a00;border-color:#b97a00;color:#fff}.sg .c{background:var(--erro);border-color:var(--erro);color:#fff}
+.bxg,.bxo{border-radius:10px;padding:8px 12px;margin-top:8px;font-size:.8125rem}.bxg{background:#d8f6dd}.bxo{background:#feecd6}
+.bxg b{color:var(--leve)}.bxo b{color:#c26200}
+.mk .row2{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+@media print{.gv{display:none!important}}
+.gv-body{flex:1;min-height:0}
+.gv-box.v{height:100%}
+.gv-view{display:flex;flex-direction:column;flex:1;min-height:0}
+.gv-vbar{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 24px;border-bottom:1px solid var(--linha)}
+.gv-vbar a{color:var(--marinho);font-weight:600;font-size:.875rem}
+.gv-pages{flex:1;min-height:0;overflow:auto;background:#eceef4;padding:16px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.gv-pages canvas{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);max-width:100%}
+.gv-vbar .l{display:flex;gap:16px;align-items:center}
+.gv-view p{margin:0;padding:10px 24px;font-size:.8125rem;color:var(--suave)}
+</style>
+</head>
+<body>
+<header class="topo"><div class="topo-in"><img src="https://media.cna.com.br/cna_logo_3ff9a4f2fc.svg" alt="CNA" onerror="this.replaceWith(document.createTextNode('Programação e Robótica'))"><button id="gopen" type="button">Guia de observação</button></div></header>
+<div class="gv noprint" id="guia" hidden role="dialog" aria-modal="true" aria-labelledby="gtit"><div class="gv-box">
+<div class="gv-head"><strong id="gtit">Guia de observação de aula</strong><button id="gclose" type="button">Fechar</button></div>
+<div class="gv-body">
+<p>Olá! Este guia foi feito para coordenadores e para quem vai observar aulas na rede. Em poucos minutos você vai entender como a ferramenta funciona e como registrar o que viu, passo a passo. Pode ler de uma vez ou voltar só à parte de que precisar.</p>
+<div class="pills"><button data-go="g0">Antes de começar</button><button data-go="g1">1. Importar o plano</button><button data-go="g2">2. Turma e aula</button><button data-go="g3">3. Antes da aula</button><button data-go="g4">4. Roteiro</button><button data-go="g5">5. Materiais</button><button data-go="g6">6. Aula de sucesso</button><button data-go="g7">7. Parecer geral</button><button data-go="g8">Gerar o relatório</button></div>
+
+<h3 id="g0">Antes de começar: o que é observar uma aula?</h3>
+<p>Observar não é fiscalizar. É um jeito de <b>apoiar o professor</b>: reconhecer o que ele faz bem, perceber o que pode melhorar e levar tudo isso para uma conversa tranquila depois da aula.</p>
+<p>O professor já preparou a aula na ferramenta <i>Preparo de aula</i> e gerou um PDF com o plano. Esse PDF é o ponto de partida: você o importa aqui e, enquanto assiste, vai conferindo o plano e anotando suas percepções.</p>
+<p>Em vários campos você vai escolher entre três respostas:</p>
+<div class="mk"><div class="sg"><span class="a">Sim</span><span class="b">Em partes</span><span class="c">Não</span></div>
+<ul style="margin-bottom:0"><li><b>Sim:</b> o professor fez o que tinha planejado.</li><li><b>Em partes:</b> fez, mas de forma incompleta, ou só parte do que estava no plano.</li><li><b>Não:</b> não aconteceu.</li></ul></div>
+<div class="callout"><b>O que você ganha:</b> um relatório organizado, no mesmo padrão para todos os professores, com o que foi bem e o que merece atenção, pronto para a conversa de feedback.</div>
+<p>Uma dica: leia o plano do professor uns minutos antes de a aula começar. Assim você já sabe o que esperar de cada momento.</p>
+
+<h3 id="g1">1. Importar o plano do professor</h3>
+<ol><li>Na parte de cima da página, clique em <b>Importar PDF</b>.</li><li>Escolha o PDF do <i>Plano de preparo de aula</i> que o professor enviou.</li><li>Pronto! Turma, roteiro, links e critérios da aula preenchem sozinhos.</li></ol>
+<div class="mk"><span class="fl">Exemplo: campos que vieram do plano</span><div class="fg"><div><span class="fl">Módulo</span><div class="fk lk">CYO2</div></div><div><span class="fl">Professor</span><div class="fk lk">Gabrielle Siqueira</div></div><div><span class="fl">Duração (min)</span><div class="fk lk">90</div></div></div></div>
+<p>Repare que esses campos ficam <b>em cinza e bloqueados</b>. Isso é de propósito: o plano é do professor e não pode ser alterado na observação. Você só acrescenta as suas anotações, nos campos que continuam brancos.</p>
+<p>Já começou uma observação e salvou o relatório em PDF? É só importar esse relatório do mesmo jeito para continuar de onde parou. Tudo volta: o plano e as suas observações.</p>
+
+<h3 id="g2">2. Turma e aula assistida</h3>
+<p>A maior parte da turma vem do plano. Você preenche três coisas:</p>
+<div class="mk"><div class="fg"><div><span class="fl">Observador</span><div class="fk">Seu nome</div></div><div><span class="fl">Aula assistida</span><div class="fk">Ao vivo ▾</div></div><div><span class="fl">Data da observação</span><div class="fk lk">06/11/2026</div></div></div></div>
+<ul><li><b>Observador:</b> escreva o seu nome.</li><li><b>Aula assistida:</b> escolha <b>Ao vivo</b> ou <b>Gravada</b>.</li><li><b>Data da observação:</b> se a aula foi ao vivo, ela é a mesma data da aula e fica bloqueada. Se foi gravada, o campo vem com a data de hoje e você pode ajustar.</li></ul>
+
+<h3 id="g3">3. Antes da aula</h3>
+<p>Aqui aparecem as preparações que o professor disse ter feito, como deixar o projeto pronto e os links organizados. Para cada uma, confirme se ele realmente fez:</p>
+<div class="mk"><div class="row2"><strong>O professor fez isso?</strong><div class="sg"><span class="a">Sim</span><span>Em partes</span><span>Não</span></div></div><span class="fl">Comentário (opcional)</span><div class="fk">Os links estavam todos funcionando.</div></div>
+<p>O comentário é opcional, mas ajuda quando a resposta for <i>Em partes</i> ou <i>Não</i>: uma frase sobre o que você notou já basta.</p>
+
+<h3 id="g4">4. Roteiro da aula</h3>
+<p>Este é o coração da observação. Cada momento da aula aparece como um bloco, com minutagem, tema, o que será feito, links e os imprevistos que o professor previu. Tudo isso é do plano e fica bloqueado. Abaixo de cada bloco há a <b>Observação do coordenador</b>, que é o seu espaço:</p>
+<div class="mk"><div class="fk lk"><b>0-10 min</b> · Boas-vindas e revisão</div>
+<div class="row2" style="margin-top:12px"><strong>Observação do coordenador</strong><div class="sg"><span class="a">Sim</span><span>Em partes</span><span>Não</span></div></div>
+<div class="bxg"><b>Pontos fortes</b><br>A revisão com perguntas rápidas deixou a turma participativa.</div>
+<div class="bxo"><b>Pontos de atenção</b><br>O link do projeto demorou a abrir; vale testar antes.</div>
+<span class="fl" style="margin-top:10px">Anotações para conversar com o professor</span><div class="fk">Perguntar como ele se sentiu com o tempo deste bloco.</div></div>
+<ul><li><b>Sim / Em partes / Não:</b> o professor cumpriu o que planejou naquele momento?</li><li><b>Pontos fortes:</b> o que funcionou bem e vale reconhecer.</li><li><b>Pontos de atenção:</b> o que pode melhorar, para vocês combinarem juntos.</li><li><b>Anotações:</b> lembretes seus para a conversa depois da aula.</li></ul>
+<p>Tudo isso é opcional. Se em um bloco você só tiver um comentário, sem ponto forte nem de atenção, tudo bem. Você pode adicionar <b>quantas caixas quiser</b> em pontos fortes e pontos de atenção.</p>
+<div class="callout"><b>Dicas para escrever bem:</b><ul style="margin-bottom:0"><li>Um ponto por caixa. Assim o relatório fica fácil de ler.</li><li>Descreva o que você viu, e não o que acha da pessoa. Em vez de "ele é desorganizado", prefira "o link do projeto demorou a abrir".</li><li>Nos pontos de atenção, pense em algo que o professor consiga mudar na próxima aula.</li><li>Comece sempre pelo que foi bom. Reconhecer faz a conversa render mais.</li></ul></div>
+
+<h3 id="g5">5. Materiais da aula</h3>
+<p>Se o professor indicou um link de materiais, o campo aparece bloqueado com esse link. Confira se o material estava disponível e funcionando para os alunos, e marque <i>Sim</i>, <i>Em partes</i> ou <i>Não</i>, com um comentário se quiser.</p>
+
+<h3 id="g6">6. Aula de sucesso</h3>
+<p>São os critérios que o próprio professor definiu para dizer que a aula deu certo, como "os alunos conseguiram instalar o programa". Para cada um, marque se foi alcançado:</p>
+<div class="mk"><div class="fk lk">Todos os alunos rodaram o projeto</div><div class="row2" style="margin-top:8px"><strong>O aluno alcançou isso?</strong><div class="sg"><span>Sim</span><span class="b">Em partes</span><span>Não</span></div></div></div>
+
+<h3 id="g7">7. Parecer geral</h3>
+<p>Depois da aula, tire um minuto para olhar o conjunto. Aqui você escreve os <b>pontos fortes</b> e os <b>pontos de atenção</b> da aula como um todo e, se quiser, um <b>comentário final</b>. É a parte que o professor tende a ler primeiro.</p>
+
+<h3 id="g8">Gerar o relatório</h3>
+<p>Quando terminar, olhe a seção <b>Situação da observação</b>. Ela mostra o que ainda falta, como itens do pré-aula sem confirmação, observador, data ou aula assistida. Com tudo certo, o botão <b>Salvar observação em PDF</b> é liberado.</p>
+<p>O PDF reúne os dados da turma, as confirmações, as observações de cada bloco e, no final, um <b>Resumo da observação</b> com três blocos: <b>anotações</b>, <b>pontos fortes</b> e <b>pontos de atenção</b>. O que o professor fez em partes ou não fez entra nos pontos de atenção, ligado ao momento da aula de onde veio.</p>
+<div class="callout"><b>Checklist final</b><ul style="margin-bottom:0"><li>Importei o plano do professor.</li><li>Preenchi observador, aula assistida e data.</li><li>Confirmei os itens do pré-aula, o material e a aula de sucesso.</li><li>Registrei pontos fortes, pontos de atenção e anotações nos blocos em que fez sentido.</li><li>Salvei o PDF e guardei para a conversa com o professor.</li></ul></div>
+<div class="callout"><b>Quer ver como fica?</b> Veja um relatório de exemplo, gerado por esta própria ferramenta, com uma aula fictícia de variáveis e condicionais.<br><button id="gex" type="button" style="margin-top:10px">Ver exemplo de relatório</button></div>
+<p>Boa observação!</p>
+</div>
+<div class="gv-view" id="gview" hidden><div class="gv-vbar"><button id="gback" type="button">← Voltar ao guia</button><span class="l"><a id="gdl" download="Exemplo - Observação de aula.pdf">Baixar PDF</a><a id="gtab" target="_blank" rel="noopener">Abrir em nova aba</a></span></div><p id="gvmsg"></p><div class="gv-pages" id="gpages"></div></div>
+</div></div>
+
+<main>
+<div class="hero"><h1>Observação de aula</h1>
+<p class="sub">Programação e Robótica</p></div>
+
+<section class="noprint"><h2>Já tem um plano salvo?</h2><p class="hint">Importe o PDF do plano de preparo enviado pelo professor, ou um relatório de observação já salvo para continuar editando.</p><button data-act="imp">Importar PDF</button> <span id="imsg" class="hint"></span><input type="file" id="imp" accept=".pdf,application/pdf,.json,application/json" hidden></section>
+<div class="bar-top">
+  <div class="row" style="align-items:center">
+    <div><strong id="tot">0 / 90 min</strong> <span id="tmsg" class="hint"></span><div class="bar"><i id="fill"></i></div></div>
+    <div id="pst" style="flex:0 1 auto"></div>
+  </div>
+</div>
+
+<section>
+  <h2>1. Turma</h2>
+  <label for="turma">Cole o nome completo da turma <span class="tip" tabindex="0" role="img" aria-label="Cole aqui o nome da turma exatamente como aparece no sistema da escola. Os campos abaixo são preenchidos sozinhos.">i<span class="tt" aria-hidden="true">Cole aqui o nome da turma exatamente como aparece no sistema da escola. Os campos abaixo são preenchidos sozinhos.</span></span></label>
+  <input id="turma" data-path="turma" placeholder="#10332 - CYO1 / JUN / QUA / 13:30 / Edney Farias">
+  <p id="tw" class="hint er" hidden>Não consegui separar o nome. Preencha os campos abaixo manualmente.</p>
+  <div class="grid g4" style="margin-top:12px">
+    <div><label>ID <span class="tip" tabindex="0" role="img" aria-label="Número da turma, o que vem depois do # no nome dela.">i<span class="tt" aria-hidden="true">Número da turma, o que vem depois do # no nome dela.</span></span></label><input data-path="f.id"></div>
+    <div><label>Módulo <span class="tip" tabindex="0" role="img" aria-label="Módulo que a turma está cursando, por exemplo CYO1.">i<span class="tt" aria-hidden="true">Módulo que a turma está cursando, por exemplo CYO1.</span></span></label><input data-path="f.mod"></div>
+    <div><label>Mês de início <span class="tip" tabindex="0" role="img" aria-label="Mês em que a turma começou, por exemplo JUN.">i<span class="tt" aria-hidden="true">Mês em que a turma começou, por exemplo JUN.</span></span></label><input data-path="f.mes"></div>
+    <div><label>Dia da aula <span class="tip" tabindex="0" role="img" aria-label="Dia da semana em que a turma tem aula, por exemplo QUA.">i<span class="tt" aria-hidden="true">Dia da semana em que a turma tem aula, por exemplo QUA.</span></span></label><input data-path="f.dia"></div>
+    <div><label>Horário <span class="tip" tabindex="0" role="img" aria-label="Horário em que a aula começa, por exemplo 13:30.">i<span class="tt" aria-hidden="true">Horário em que a aula começa, por exemplo 13:30.</span></span></label><input data-path="f.hora"></div>
+    <div><label>Professor <span class="tip" tabindex="0" role="img" aria-label="Nome do professor responsável por esta turma.">i<span class="tt" aria-hidden="true">Nome do professor responsável por esta turma.</span></span></label><input data-path="f.prof"></div>
+    <div><label>Data da aula <span class="tip" tabindex="0" role="img" aria-label="Dia em que esta aula vai acontecer. Clique no campo para escolher no calendário. A data também vai no nome do PDF.">i<span class="tt" aria-hidden="true">Dia em que esta aula vai acontecer. Clique no campo para escolher no calendário. A data também vai no nome do PDF.</span></span></label><input type="date" data-path="f.data"></div>
+    <div><label>Duração (min) <span class="tip" tabindex="0" role="img" aria-label="Duração total da aula, em minutos. O roteiro precisa somar exatamente esse tempo.">i<span class="tt" aria-hidden="true">Duração total da aula, em minutos. O roteiro precisa somar exatamente esse tempo.</span></span></label><input type="number" min="10" value="90" data-path="dur"></div>
+  </div>
+  <div class="grid g3" style="margin-top:16px">
+    <div><label>Observador <span class="tip" tabindex="0" role="img" aria-label="Escreva o seu nome, para constar no relatório.">i<span class="tt" aria-hidden="true">Escreva o seu nome, para constar no relatório.</span></span></label><input data-path="f.obs"></div>
+    <div><label>Aula assistida <span class="tip" tabindex="0" role="img" aria-label="Escolha Ao vivo se você acompanhou a aula enquanto ela acontecia, ou Gravada se assistiu depois, pela gravação.">i<span class="tt" aria-hidden="true">Escolha Ao vivo se você acompanhou a aula enquanto ela acontecia, ou Gravada se assistiu depois, pela gravação.</span></span></label><select data-path="f.tipo"><option value="">Selecione</option><option value="ao vivo">Ao vivo</option><option value="gravada">Gravada</option></select></div>
+    <div><label>Data da observação <span class="tip" tabindex="0" role="img" aria-label="Dia em que você observou a aula. Em aula ao vivo, é a mesma data da aula e o campo fica bloqueado. Em aula gravada, vem com a data de hoje e você pode alterar.">i<span class="tt" aria-hidden="true">Dia em que você observou a aula. Em aula ao vivo, é a mesma data da aula e o campo fica bloqueado. Em aula gravada, vem com a data de hoje e você pode alterar.</span></span></label><input type="date" data-path="f.dobs"></div>
+  </div>
+</section>
+
+<section>
+  <h2>2. Antes da aula</h2>
+  <p class="hint">Itens que o professor indicou como preparados. Confirme se ele realmente fez cada um.</p>
+  <div id="pre"></div>
+</section>
+
+<section>
+  <h2>3. Roteiro da aula</h2>
+  <p class="hint">Confira cada momento da aula e registre suas observações em cada bloco.</p>
+  <div id="blocks"></div>
+  <button class="p noprint" data-act="addblk">Adicionar bloco</button>
+</section>
+
+<section>
+  <h2>4. Materiais da aula</h2>
+  <label>Link com todos os materiais da aula <span class="tip" tabindex="0" role="img" aria-label="Um link que reúne todos os materiais da aula: slides, imagens e arquivos. Pode ser uma pasta no Drive, uma página ou um repositório no GitHub.">i<span class="tt" aria-hidden="true">Um link que reúne todos os materiais da aula: slides, imagens e arquivos. Pode ser uma pasta no Drive, uma página ou um repositório no GitHub.</span></span></label>
+  <p class="hint">Pode ser uma pasta no Drive, uma página ou um repositório no GitHub que reúna todos os slides, imagens e arquivos usados na aula.</p>
+  <input data-path="drive" placeholder="Cole o link aqui"><div id="mobs"></div>
+</section>
+
+<section>
+  <h2>5. Aula de sucesso</h2>
+  <p class="hint">O que o aluno precisa ter feito no fim da aula? <span class="tip" tabindex="0" role="img" aria-label="Escreva o que o aluno precisa ter feito no fim da aula para ela ser um sucesso. Prefira algo que dê para conferir. Ex.: o aluno instalou o Unity, criou o script de movimento e aprendeu variáveis.">i<span class="tt" aria-hidden="true">Escreva o que o aluno precisa ter feito no fim da aula para ela ser um sucesso. Prefira algo que dê para conferir. Ex.: o aluno instalou o Unity, criou o script de movimento e aprendeu variáveis.</span></span></p>
+  <div id="succ"></div>
+  <button class="noprint" data-act="addsucc">Adicionar item</button>
+</section>
+
+<section><h2>6. Parecer geral</h2><p class="hint">Resumo da observação, para a conversa com o professor.</p><div id="gp"></div></section>
+
+<section class="noprint">
+  <h2>Situação da observação</h2>
+  <ul id="status" style="padding-left:18px;margin:0 0 14px"></ul>
+  <button class="p" id="savebtn" data-act="pdf" disabled>Salvar observação em PDF</button> <span id="smsg" class="hint"></span>
+  <p class="hint" style="margin:10px 0 0">O PDF só é liberado quando todos os itens acima estiverem completos.</p>
+</section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<script>
+const Q=[
+{k:'falta',q:'Algum aluno faltou na última aula?',a:'Preparar o projeto base com o ponto de partida da aula anterior, pronto para enviar ao aluno faltante.'},
+{k:'proj',q:'A turma está no meio de um projeto?',a:'Ter o projeto final pronto, com todas as funcionalidades, antes da aula.'},
+{k:'cod',q:'Os alunos vão copiar códigos durante a aula?',a:'Organizar os códigos em links, para tê-los em mãos na hora de enviar aos alunos. Coloque o link no bloco do roteiro em que cada código será passado.'},
+{k:'inst',q:'Haverá instalação de algum programa?',a:'Deixar prontos os links de instalação e tudo que for necessário. Coloque os links no bloco correspondente.'},
+{k:'arq',q:'Os alunos vão precisar de arquivos (imagens, assets)?',a:'Deixar os arquivos organizados para download por link. Coloque o link no bloco em que serão usados.'},
+{k:'atr',q:'Ficou algo pendente ou a turma está atrasada?',a:'Reorganizar os assuntos para voltar ao cronograma e refletir isso na minutagem do roteiro.'}
+];
+const S={turma:'',dur:90,f:{id:'',mod:'',mes:'',dia:'',hora:'',prof:'',data:'',obs:'',dobs:'',tipo:''},drive:'',q:{},blocks:[],succ:[ns()],mo:{r:null,c:''},g:{f:[''],m:[''],c:''}};
+function hoje(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function ns(t){return{t:t||'',r:null,c:''}}
+function no(o){o=o||{};return{r:['sim','parte','nao'].includes(o.r)?o.r:null,c:String(o.c||'')}}
+const strs=a=>Array.isArray(a)&&a.length?a.map(String):[''];
+S.f.dobs=hoje();
+Q.forEach(o=>S.q[o.k]={v:null,done:false,x:{},o:{r:null,c:''}});
+S.blocks.push(nb());
+function nb(){return{min:10,title:'',desc:'',links:[''],risks:[{p:'',s:''}],o:{r:null,n:[''],m:[''],c:''}}}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');
+function get(p){return p.split('.').reduce((o,k)=>o?.[k],S)}
+function set(p,v){const a=p.split('.'),l=a.pop();a.reduce((o,k)=>o[k],S)[l]=v}
+function tip(t){return `<span class="tip" tabindex="0" role="img" aria-label="${esc(t)}">i<span class="tt" aria-hidden="true">${esc(t)}</span></span>`}
+function inp(path,label,opt={}){const v=esc(get(path));const t=opt.t?`<textarea data-path="${path}" ${opt.ph?`placeholder="${esc(opt.ph)}"`:''}>${v}</textarea>`:`<input data-path="${path}" value="${v}" ${opt.ph?`placeholder="${esc(opt.ph)}"`:''} ${opt.num?'type="number" min="0"':''}>`;return`<div>${label?`<label>${label}</label>`:''}${t}</div>`}
+
+function rs(path){const v=get(path);return '<span class="noprint seg">'+[['sim','Sim'],['parte','Em partes'],['nao','Não']].map(([k,l])=>`<button class="${k} ${v===k?'on':''}" data-rs="${path}" data-val="${k}">${l}</button>`).join(' ')+'</span>'}
+function lst(path,lbl,add){const a=get(path);return `<label>${lbl}</label>`+a.map((s,j)=>`<div class="row lk"><textarea data-path="${path}.${j}" placeholder="Escreva aqui">${esc(s)}</textarea>${a.length>1?`<button class="noprint" style="flex:0 0 auto" data-act="dlst:${path}:${j}" aria-label="Remover">×</button>`:''}</div>`).join('')+`<button class="noprint add" data-act="alst:${path}">${add}</button>`}
+function conf(path,lbl,t){const o=get(path);return `<div class="ob"><div class="top"><strong>${lbl}${t?' '+tip(t):''}</strong>${rs(path+'.r')}</div><label style="margin-top:10px">Comentário (opcional) ${tip('Uma frase sobre o que você notou. É opcional, mas ajuda a lembrar do que conversar com o professor depois.')}</label><textarea data-path="${path}.c">${esc(o.c)}</textarea></div>`}
+function obsBlk(i){const p=`blocks.${i}.o`;return `<div class="ob"><div class="top"><strong>Observação do coordenador ${tip('Este é o seu espaço em cada bloco. O que está acima é o plano do professor e não pode ser alterado; aqui você registra o que viu.')}</strong>${rs(p+'.r')}</div><p class="hint" style="margin:4px 0 10px">O professor cumpriu o que planejou neste momento? (opcional)</p>${lst(p+'.n','Pontos fortes (opcional) '+tip('O que funcionou bem neste momento e vale reconhecer. Escreva um ponto por caixa, descrevendo o que você viu. Ex.: a revisão com perguntas rápidas deixou a turma participativa.'),'Adicionar ponto forte')}<div style="height:12px"></div>${lst(p+'.m','Pontos de atenção (opcional) '+tip('O que pode melhorar, para vocês combinarem juntos. Um ponto por caixa, sobre algo que o professor consiga mudar na próxima aula. Ex.: o link do projeto demorou a abrir.'),'Adicionar ponto de atenção')}<div style="margin-top:12px"><label>Anotações para conversar com o professor (opcional) ${tip('Lembretes e perguntas para a conversa depois da aula. Ex.: perguntar como ele se sentiu com o tempo deste bloco.')}</label><textarea data-path="${p}.c">${esc(get(p).c)}</textarea></div></div>`}
+function parseTurma(t){
+  const m=t.trim().match(/^#?\s*(\d+)\s*-\s*(.+?)\s*\/\s*(.+?)\s*\/\s*(.+?)\s*\/\s*(.+?)\s*\/\s*(.+)$/);
+  if(!m)return false;
+  const[,id,mod,mes,dia,hora,prof]=m;Object.assign(S.f,{id,mod,mes,dia,hora,prof});return true;
+}
+function render(){
+  $('#pre').innerHTML=(()=>{const it=Q.filter(o=>S.q[o.k].v===true);return it.length?it.map(o=>`<div class="q"><strong>${o.q}</strong><div class="act">${o.a}</div>${conf(`q.${o.k}.o`,'O professor fez isso?','Confirme se o professor realmente fez esta preparação antes da aula. Sim: fez. Em partes: fez só uma parte. Não: não fez.')}</div>`).join(''):'<p class="hint">Nenhum item de preparo para conferir. Se ainda não importou, importe o PDF do plano do professor acima.</p>'})();
+  $('#blocks').innerHTML=S.blocks.map((b,i)=>`<div class="blk">
+    <div class="bh"><span class="st" data-st="${i}"></span><div class="m"><label>Minutos ${tip('Quantos minutos você vai dedicar a este tema, ou seja, o tempo que vai parar para explicar e praticar com os alunos.')}</label><input type="number" min="1" data-path="blocks.${i}.min" value="${esc(b.min)}"></div>
+    <div class="t"><label>Tema ${tip('O assunto desta parte da aula. Exemplos: variáveis, comandos de repetição, código de movimento do personagem.')}</label><input data-path="blocks.${i}.title" value="${esc(b.title)}" placeholder="Ex.: Variáveis"></div>
+    <button class="noprint" data-act="delblk:${i}" aria-label="Remover bloco">Remover</button></div>
+    ${inp(`blocks.${i}.desc`,'O que será passado '+tip('Descreva, em poucas palavras, o que você vai fazer nesta parte: o que vai explicar, quais slides vai mostrar e que exemplo vai usar.'),{t:1,ph:'Ex.: Explicar o que é uma variável, mostrar os slides 1 e 2 e usar o exemplo da caixa que guarda um valor.'})}
+    <div style="margin-top:12px"><label>Links do material deste momento (código, arquivo, instalador) ${tip('Links dos materiais usados neste momento da aula, como códigos, arquivos e instaladores. Você pode adicionar mais de um.')}</label>${b.links.map((l,j)=>`<div class="row lk"><input data-path="blocks.${i}.links.${j}" value="${esc(l)}" placeholder="Cole o link aqui">${b.links.length>1?`<button class="noprint" style="flex:0 0 auto" data-act="dellink:${i}:${j}" aria-label="Remover link">×</button>`:''}</div>`).join('')}<button class="noprint add" data-act="addlink:${i}">Adicionar link</button></div>
+    <details class="rk" data-blk="${i}" ${b.closed?'':'open'}><summary><strong>O que pode dar errado (opcional)</strong> ${tip('Espaço para registrar problemas que podem acontecer nesta parte da aula e a solução de cada um. Exemplo: o aluno não conseguiu instalar o Unity, ou o Unity não roda no computador dele. Solução: passar o AnyDesk para ele usar o Unity.')}</summary>
+    ${b.risks.map((r,j)=>`<div class="r" style="margin-top:8px">${inp(`blocks.${i}.risks.${j}.p`,'Problema '+tip('Algo que pode dar errado nesta parte da aula. Ex.: o aluno não conseguiu instalar o Unity.'))}${inp(`blocks.${i}.risks.${j}.s`,'Solução (com link, se houver) '+tip('O que você vai fazer se o problema acontecer. Ex.: passar acesso remoto com o AnyDesk para o aluno conseguir usar o Unity.'))}<button class="noprint" style="align-self:end" data-act="delrk:${i}:${j}" aria-label="Remover problema">×</button></div>`).join('')}
+    <button class="noprint add" data-act="addrk:${i}">Adicionar problema</button></details>${obsBlk(i)}</div>`).join('');
+  $('#succ').innerHTML=S.succ.map((s,i)=>`<div class="blk"><div class="row" style="align-items:center"><input data-path="succ.${i}.t" value="${esc(s.t)}" placeholder="Ex.: Instalou o Unity e rodou o projeto"><button class="noprint" style="flex:0 0 auto" data-act="delsucc:${i}" aria-label="Remover item">×</button></div>${conf(`succ.${i}`,'O aluno alcançou isso?','Marque se, na aula observada, os alunos chegaram a fazer o que o professor definiu como sucesso. Use Em partes quando só uma parte foi alcançada.')}</div>`).join('');
+  $('#mobs').innerHTML=conf('mo','O material foi disponibilizado?','Confira se o material estava disponível e funcionando para os alunos. Responda Sim, Em partes ou Não.');
+  $('#gp').innerHTML=lst('g.f','Pontos fortes '+tip('Os destaques da aula como um todo, depois de olhar o conjunto. Aparecem no parecer geral e no resumo do PDF.'),'Adicionar ponto forte')+'<div style="height:14px"></div>'+lst('g.m','Pontos de atenção '+tip('O que merece atenção na aula como um todo, para combinar com o professor. Aparece no parecer geral e no resumo do PDF.'),'Adicionar ponto de atenção')+`<div style="margin-top:14px"><label>Comentário final (opcional) ${tip('Um recado final para o professor, se quiser. Aparece no parecer geral e nas anotações do resumo do PDF.')}</label><textarea data-path="g.c">${esc(S.g.c)}</textarea></div>`;
+  lock();upd();
+}
+const PLAN=/^(turma|dur|drive|f\.(id|mod|mes|dia|hora|prof|data)|blocks\.\d+\.(min|title|desc|links|risks)(\..*)?|succ\.\d+\.t)$/;
+function lock(){const L=!!S.locked;document.querySelectorAll('[data-path]').forEach(e=>{e.readOnly=(L&&PLAN.test(e.dataset.path))||(e.dataset.path==='f.dobs'&&S.f.tipo==='ao vivo')});document.querySelectorAll('[data-act]').forEach(b=>{if(/^(addblk|delblk|addlink|dellink|addrk|delrk|addsucc|delsucc)\b/.test(b.dataset.act))b.hidden=L})}
+function upd(){
+  const dur=+S.dur||90;let t=0;
+  S.blocks.forEach((b,i)=>{const m=+b.min||0;const e=document.querySelector(`[data-st="${i}"]`);if(e)e.textContent=`${t}–${t+m} min`;t+=m});
+  $('#tot').textContent=`${t} / ${dur} min`;
+  const f=$('#fill');f.style.width=Math.min(100,t/dur*100)+'%';f.style.background=t>dur?'var(--er)':t<dur*0.8?'#f0b323':'var(--ok)';
+  $('#tmsg').textContent='';
+  const c=[];
+  const pend=Q.filter(o=>S.q[o.k].v===true&&!S.q[o.k].o.r).length;
+  c.push([!pend,pend?`Confirmar ${pend} item(ns) do pré-aula`:'Itens do pré-aula conferidos']);
+  c.push([S.blocks.length&&S.blocks.every(b=>b.title.trim()),'Todos os blocos do roteiro com tema']);
+  c.push([!S.drive.trim()||S.mo.r,'Material da aula conferido']);
+  const ps=S.succ.filter(s=>s.t.trim()&&!s.r).length;
+  c.push([!ps,ps?`Conferir ${ps} item(ns) da aula de sucesso`:'Aula de sucesso conferida']);
+  c.push([S.f.id&&S.f.prof,'Turma identificada']);
+  c.push([S.f.obs&&S.f.obs.trim()&&S.f.dobs,'Observador e data da observação informados']);
+  c.push([S.f.tipo,'Informar se a aula foi vista ao vivo ou gravada']);
+  $('#status').innerHTML=c.map(([ok,l])=>`<li class="${ok?'ok':'wr'}">${ok?'✓':'○'} ${l}</li>`).join('');
+  const done=c.every(x=>x[0]);$('#savebtn').disabled=!done;$('#pst').innerHTML=`<strong class="${done?'ok':'wr'}">${done?'Observação completa':'Observação incompleta'}</strong>`;
+}
+document.addEventListener('input',e=>{
+  const p=e.target.dataset.path;if(!p)return;
+  let v=e.target.value;set(p,v);
+  if(p==='f.tipo'||p==='f.data'){if(S.f.tipo==='ao vivo')S.f.dobs=S.f.data;else if(p==='f.tipo'&&v==='gravada')S.f.dobs=hoje();const d=document.querySelector('[data-path="f.dobs"]');if(d)d.value=S.f.dobs;lock()}
+  if(p==='turma'){const ok=!v.trim()||parseTurma(v);$('#tw').hidden=ok;document.querySelectorAll('[data-path^="f."]').forEach(i=>i.value=get(i.dataset.path)||'')}
+  upd();
+});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-act]');if(!b||b.type==='checkbox')return;
+  const[a,x,y]=b.dataset.act.split(':');
+  if(a==='ans'){S.q[x].v=y==='1';if(y==='0')S.q[x].done=false}
+  else if(a==='addblk')S.blocks.push(nb());
+  else if(a==='delblk')S.blocks.splice(+x,1);
+  else if(a==='addlink')S.blocks[+x].links.push('');
+  else if(a==='dellink')S.blocks[+x].links.splice(+y,1);
+  else if(a==='addrk')S.blocks[+x].risks.push({p:'',s:''});
+  else if(a==='delrk'){S.blocks[+x].risks.splice(+y,1);}
+  else if(a==='addsucc')S.succ.push(ns());
+  else if(a==='alst')get(x).push('');
+  else if(a==='dlst'){const l=get(x);l.splice(+y,1);if(!l.length)l.push('')}
+  else if(a==='delsucc')S.succ.splice(+x,1);
+  else if(a==='pdf'){savePdf();return}
+  else if(a==='imp'){$('#imp').click();return}
+  else return;
+  render();
+});
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-rs]');if(!b)return;const p=b.dataset.rs;set(p,get(p)===b.dataset.val?null:b.dataset.val);render()});
+document.addEventListener('click',e=>{const t=e.target;if(t.matches&&t.matches('input[type=date]')&&!t.readOnly){try{t.showPicker()}catch(_){}}});
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('summary .tip'))e.preventDefault()});
+function flashI(t,e){const m=$('#imsg');m.textContent=t;m.className='hint '+(e?'er':'ok')}
+function applyPlan(d){
+  const P=d&&d.S;if(!P||typeof P!=='object')throw new Error('formato');
+  S.locked=true;S.turma=String(P.turma||'');S.dur=P.dur||90;S.drive=String(P.drive||'');
+  S.f={id:'',mod:'',mes:'',dia:'',hora:'',prof:'',data:'',obs:'',dobs:'',tipo:''};Object.keys(S.f).forEach(k=>{S.f[k]=String((P.f||{})[k]||'')});if(!S.f.dobs)S.f.dobs=hoje();if(S.f.tipo==='ao vivo')S.f.dobs=S.f.data;
+  Q.forEach(o=>{const q=(P.q||{})[o.k]||{};S.q[o.k]={v:q.v===true?true:q.v===false?false:null,done:!!q.done,x:{},o:no(q.o)}});
+  S.blocks=(Array.isArray(P.blocks)&&P.blocks.length?P.blocks:[nb()]).map(b=>({min:b.min??10,title:String(b.title||''),desc:String(b.desc||''),links:Array.isArray(b.links)&&b.links.length?b.links.map(String):[String(b.link||'')],closed:!!b.closed,risks:(Array.isArray(b.risks)?b.risks:[]).map(r=>({p:String(r.p||''),s:String(r.s||'')})).filter(r=>r.p.trim()||r.s.trim()),o:Object.assign(no(b.o),{n:strs(b.o&&b.o.n),m:strs(b.o&&b.o.m),c:String(b.o&&b.o.c||'')})}));
+  S.succ=Array.isArray(P.succ)&&P.succ.length?P.succ.map(x=>x&&typeof x==='object'?Object.assign(no(x),{t:String(x.t||'')}):ns(String(x))):[ns()];
+  S.mo=no(P.mo);S.g={f:strs(P.g&&P.g.f),m:strs(P.g&&P.g.m),c:String(P.g&&P.g.c||'')};
+  render();
+  document.querySelectorAll('[data-path]').forEach(e=>{const v=get(e.dataset.path);e.value=v==null?'':v});
+  $('#tw').hidden=true;
+}
+$('#imp').addEventListener('change',async e=>{
+  const file=e.target.files[0];e.target.value='';if(!file)return;
+  try{
+    const buf=await file.arrayBuffer();const txt=new TextDecoder('latin1').decode(buf);let d;
+    if(/\.json$/i.test(file.name)||txt.trimStart().startsWith('{'))d=JSON.parse(new TextDecoder('utf-8').decode(buf));
+    else{const m=txt.match(/(?:OBSERVACAO|PREPARO)-DE-AULA:v1:([A-Za-z0-9+\/=]+)/);if(!m)throw new Error('sem dados');d=JSON.parse(decodeURIComponent(escape(atob(m[1]))))}
+    applyPlan(d);flashI('PDF importado. Os dados do professor ficam bloqueados; você só preenche as observações.');
+  }catch(err){flashI('Não encontrei os dados do plano neste arquivo. A importação só funciona com PDFs gerados pelo Preparo de aula ou pela Observação de aula.',1)}
+});
+document.addEventListener('toggle',e=>{const d=e.target;if(d.dataset&&d.dataset.blk!==undefined&&S.blocks[+d.dataset.blk])S.blocks[+d.dataset.blk].closed=!d.open},true);
+function flash(t,e){const m=$('#smsg');m.textContent=t;m.className='hint '+(e?'er':'ok')}
+async function savePdf(prev){
+  if(!prev&&$('#savebtn').disabled)return;
+  const J=window.jspdf&&window.jspdf.jsPDF;
+  if(!J){flash('Não foi possível carregar o gerador de PDF. Recarregue a página.',1);return}
+  let dl=null;if(!prev)try{dl=window.claude?await window.claude.use('downloads'):null}catch(e){}
+  
+  const f=S.f,dur=+S.dur||90,doc=new J({unit:'mm',format:'a4'});
+  const NAVY=[45,44,112],RED=[232,23,63],INK=[58,59,77],SOFT=[107,109,128],LINE=[223,226,234],BG=[247,248,251],TINT=[238,238,250],AMB=[254,241,196],AMBT=[138,90,0],GRN=[29,122,69];
+  const M=16,TW=178,BOT=280,LH=0.46;let y=0;
+  const fill=c=>doc.setFillColor(c[0],c[1],c[2]),ink=c=>doc.setTextColor(c[0],c[1],c[2]),stroke=c=>doc.setDrawColor(c[0],c[1],c[2]);
+  const wrap=(t,sz,b,w)=>{doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(sz);return doc.splitTextToSize(String(t),w)};
+  const put=(ls,x,sz,b,c,link)=>{doc.setFont('helvetica',b?'bold':'normal');doc.setFontSize(sz);ink(c);ls.forEach(l=>{doc.text(l,x,y+sz*0.3);if(link)doc.link(x,y,TW,sz*LH,{url:link});y+=sz*LH})};
+  const tick=(cx,cy,k)=>{stroke([255,255,255]);doc.setLineWidth(0.5);doc.line(cx-k,cy,cx-k*0.3,cy+k*0.7);doc.line(cx-k*0.3,cy+k*0.7,cx+k,cy-k*0.8)};
+  const page=()=>{doc.addPage();fill(RED);doc.rect(0,0,210,1.5,'F');y=16};
+  const need=h=>{if(y+h>BOT)page()};
+  const head=t=>{need(14);y+=3;fill(RED);doc.roundedRect(M,y,1.8,6.5,0.9,0.9,'F');put([t],M+5,13,true,NAVY);y+=2.5};
+  // faixa inicial
+  fill(RED);doc.rect(0,0,210,3,'F');fill(NAVY);doc.rect(0,3,210,38,'F');
+  try{doc.setGState(new doc.GState({opacity:0.07}));stroke([255,255,255]);doc.setLineWidth(7);doc.circle(196,8,20,'S');doc.setGState(new doc.GState({opacity:1}))}catch(e){}
+  y=15;put(['Relatório de observação de aula'],M,20,true,[255,255,255]);y=27;put(['Programação e Robótica'],M,11,false,[222,222,240]);
+  // quadro da turma
+  y=48;fill(BG);stroke(LINE);doc.setLineWidth(0.3);doc.roundedRect(M,y,TW,43,3,3,'FD');
+  const info=[['Turma','#'+f.id],['Módulo'+(f.mes?' (início '+f.mes+')':''),f.mod],['Professor',f.prof],['Dia e horário',f.dia+' - '+f.hora],['Data da aula',f.data?f.data.split('-').reverse().join('/'):'Não informada'],['Duração',dur+' min'],['Observador',f.obs||'Não informado'],['Aula assistida',f.tipo==='ao vivo'?'Ao vivo':f.tipo==='gravada'?'Gravada':'Não informado'],['Data da observação',f.dobs?f.dobs.split('-').reverse().join('/'):'Não informada']];
+  info.forEach((c,i)=>{const x=M+6+(i%3)*58,yy=y+6+Math.floor(i/3)*13;doc.setFont('helvetica','normal');doc.setFontSize(8);ink(SOFT);doc.text(c[0],x,yy+2);doc.setFont('helvetica','bold');doc.setFontSize(10.5);ink(NAVY);doc.text(doc.splitTextToSize(String(c[1]),54)[0],x,yy+7.5)});
+  y+=47;
+  // pré-aula
+  head('Plano pré-aula');
+  const OC={sim:GRN,parte:AMBT,nao:[211,18,47]},OL={sim:'Sim',parte:'Em partes',nao:'Não'};
+  const obsl=(o,lbl,x)=>{if(!o)return;if(o.r){const ls=wrap(lbl+' '+OL[o.r],9,true,TW-(x-M));need(ls.length*9*LH+1);put(ls,x,9,true,OC[o.r])}if((o.c||'').trim()){const ls=wrap('Comentário: '+o.c.trim(),9,false,TW-(x-M));need(ls.length*9*LH+1);put(ls,x,9,false,SOFT)}y+=1.5};
+  const it=Q.filter(o=>S.q[o.k].v===true);
+  if(it.length)it.forEach(o=>{const ls=wrap(o.a,10,false,TW-10);need(ls.length*10*LH+3);fill(RED);doc.roundedRect(M+1,y+0.4,4.6,4.6,1,1,'F');tick(M+3.3,y+2.3,1.1);const y0=y;put(ls,M+9,10,false,INK);y=Math.max(y,y0+6)+1;obsl(S.q[o.k].o,'O professor fez isso?',M+9)});
+  else put(['Nenhuma preparação específica necessária.'],M,10,false,SOFT);
+  // roteiro
+  head('Roteiro da aula');
+  const IW2=TW-18;
+  const obLines=b=>{const o=b.o||{},L=[];
+  if(o.r)L.push({k:'s',ls:wrap('Cumpriu o planejado: '+OL[o.r],9,true,TW-18),c:OC[o.r]});
+  const bx=(t,arr,bg,c)=>{arr=(arr||[]).filter(x=>x.trim());if(arr.length)L.push({k:'b',t,bg,c,bul:1,it:arr.map(x=>wrap(x.trim(),9,false,TW-24))})};
+  bx('Pontos fortes',o.n,[216,246,221],GRN);bx('Pontos de atenção',o.m,[254,236,214],[194,98,0]);
+  if((o.c||'').trim())L.push({k:'b',t:'Anotações',bg:TINT,c:NAVY,bul:0,it:[wrap(o.c.trim(),9,false,TW-24)]});
+  L.forEach(r=>{r.h=r.k==='s'?r.ls.length*9*LH+1.5:7.2+r.it.reduce((a,l)=>a+l.length*9*LH+1.2,0)+4});return L};
+  let t=0;
+  S.blocks.forEach(b=>{
+    const m=+b.min||0,tag=t+'-'+(t+m)+' min';t+=m;
+    doc.setFont('helvetica','bold');doc.setFontSize(9);const pw=doc.getTextWidth(tag)+8,IW=TW-10;
+    const tl=wrap(b.title||'Sem título',11,true,IW-pw-4),dl2=wrap(b.desc,9.5,false,IW),lks=b.links.map(l=>l.trim()).filter(Boolean).map(l=>({ls:wrap('Link: '+l,9,false,IW),url:/^https?:/i.test(l)?l:null})),rs=b.risks.filter(r=>r.p.trim());
+    const rl=rs.map(r=>({p:wrap('Problema: '+r.p,9,true,IW-8),s:r.s.trim()?wrap('Solução: '+r.s,9,false,IW-8):[]}));
+    const hh=Math.max(6.5,tl.length*11*LH);
+    let H=5+hh+2+dl2.length*9.5*LH+(lks.length?1.5+lks.reduce((a,k)=>a+k.ls.length*9*LH+0.8,0):0)+5;
+    if(rl.length)H+=3+5+rl.reduce((a,r)=>a+(r.p.length+r.s.length)*9*LH+2,0)+1;
+    const ol=obLines(b);if(ol.length)H+=3+5.5+ol.reduce((a,r)=>a+r.h,0);
+    need(Math.min(H,250));
+    const y0=y;fill([255,255,255]);stroke(LINE);doc.setLineWidth(0.3);doc.roundedRect(M,y0,TW,H,2.5,2.5,'FD');fill(RED);doc.roundedRect(M,y0+3,1.6,H-6,0.8,0.8,'F');
+    fill(TINT);doc.roundedRect(M+5,y0+5,pw,6.5,3.25,3.25,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);ink(NAVY);doc.text(tag,M+9,y0+9.4);
+    y=y0+5+(hh-tl.length*11*LH)/2;put(tl,M+5+pw+4,11,true,NAVY);y=y0+5+hh+2;
+    put(dl2,M+5,9.5,false,INK);
+    if(lks.length){y+=1.5;lks.forEach(k=>{put(k.ls,M+5,9,false,RED,k.url);y+=0.8})}
+    if(rl.length){y+=3;const bh=5+rl.reduce((a,r)=>a+(r.p.length+r.s.length)*9*LH+2,0)+1;fill(AMB);doc.roundedRect(M+5,y,IW,bh,2,2,'F');y+=2.5;put(['O que pode dar errado'],M+9,8.5,true,AMBT);y+=0.5;rl.forEach(r=>{put(r.p,M+9,9,true,INK);put(r.s,M+9,9,false,INK);y+=2})}
+    if(ol.length){y+=3;put(['Observação do coordenador'],M+5,8.5,true,NAVY);y+=1.5;
+      ol.forEach(r=>{if(r.k==='s'){put(r.ls,M+5,9,true,r.c);y+=1.5}else{fill(r.bg);doc.roundedRect(M+5,y,IW,r.h-2,2,2,'F');y+=2.5;put([r.t],M+9,9,true,r.c);y+=0.5;r.it.forEach(l=>{if(r.bul){fill(r.c);doc.circle(M+10.5,y+1.6,0.7,'F')}put(l,M+(r.bul?13:9),9,false,INK);y+=1.2});y+=4}})}
+    y=y0+H+4});
+  if(S.drive.trim()||S.mo.r){head('Materiais da aula');if(S.drive.trim()){const ls=wrap(S.drive.trim(),10,false,TW);need(ls.length*10*LH+2);put(ls,M,10,false,RED,/^https?:/i.test(S.drive.trim())?S.drive.trim():null);y+=2}obsl(S.mo,'Material disponibilizado?',M)}
+  head('Aula de sucesso');
+  S.succ.filter(s=>s.t.trim()).forEach(s=>{const ls=wrap(s.t,10,false,TW-9);need(ls.length*10*LH+3);fill(GRN);doc.circle(M+3,y+2.6,2.5,'F');tick(M+3,y+2.6,1.1);const y0=y;put(ls,M+9,10,false,INK);y=Math.max(y,y0+6)+1;obsl(s,'Alcançado?',M+9)});
+  const g=S.g,gf=g.f.filter(x=>x.trim()),gm=g.m.filter(x=>x.trim());
+  if(gf.length||gm.length||g.c.trim()){head('Parecer geral');
+    const bl=(t,arr,c)=>{if(!arr.length)return;need(8);put([t],M,10,true,c);y+=1;arr.forEach(x=>{const ls=wrap(x,10,false,TW-9);need(ls.length*10*LH+3);fill(c);doc.circle(M+3,y+2.6,1.2,'F');const y0=y;put(ls,M+9,10,false,INK);y=Math.max(y,y0+6)+1});y+=2};
+    bl('Pontos fortes',gf,GRN);bl('Pontos de atenção',gm,[194,98,0]);
+    if(g.c.trim()){need(8);put(['Comentário final'],M,10,true,NAVY);y+=1;wrap(g.c.trim(),10,false,TW).forEach(l=>{need(10*LH);put([l],M,10,false,INK)})}}
+  // resumo
+  const POS=[],NEG=[],ANO=[],ORG=[194,98,0];
+  const addg=(A,t,it)=>{if(it.length)A.push({t,it})};
+  const sd=r=>r==='sim'?POS:(r==='parte'||r==='nao')?NEG:null;
+  {const P=[],N=[];Q.filter(o=>S.q[o.k].v===true).forEach(o=>{const r=S.q[o.k].o.r;if(r==='sim')P.push(o.a);else if(r==='parte')N.push('Em partes: '+o.a);else if(r==='nao')N.push('Não fez: '+o.a)});addg(POS,'Antes da aula',P);addg(NEG,'Antes da aula',N)}
+  let tt=0;S.blocks.forEach(b=>{const m=+b.min||0,tg=tt+'-'+(tt+m)+' min · '+(b.title||'Sem título');tt+=m;const o=b.o||{},P=[],N=[];
+    if(o.r==='sim')P.push('Cumpriu o planejado');if(o.r==='parte')N.push('Cumpriu o planejado em partes');if(o.r==='nao')N.push('Não cumpriu o planejado');
+    (o.n||[]).filter(x=>x.trim()).forEach(x=>P.push(x.trim()));(o.m||[]).filter(x=>x.trim()).forEach(x=>N.push(x.trim()));addg(POS,tg,P);addg(NEG,tg,N);if((o.c||'').trim())addg(ANO,tg,[o.c.trim()])});
+  if(S.mo.r==='sim')addg(POS,'Materiais da aula',['Material disponibilizado']);
+  if(S.mo.r==='parte')addg(NEG,'Materiais da aula',['Material disponibilizado em partes']);
+  if(S.mo.r==='nao')addg(NEG,'Materiais da aula',['Material não disponibilizado']);
+  {const P=[],N=[];S.succ.filter(x=>x.t.trim()).forEach(x=>{if(x.r==='sim')P.push(x.t.trim());else if(x.r==='parte')N.push('Em partes: '+x.t.trim());else if(x.r==='nao')N.push('Não alcançado: '+x.t.trim())});addg(POS,'Aula de sucesso',P);addg(NEG,'Aula de sucesso',N)}
+  addg(POS,'Parecer geral',gf.map(x=>x.trim()));addg(NEG,'Parecer geral',gm.map(x=>x.trim()));if(g.c.trim())addg(ANO,'Parecer geral',[g.c.trim()]);
+  if(POS.length||NEG.length||ANO.length){head('Resumo da observação');
+    const side=(title,G,bg,c)=>{if(!G.length)return;need(14);put([title],M,11,true,c);y+=1.5;G.forEach(g=>{const its=g.it.map(x=>wrap(x,9,false,TW-14)),h=7.2+its.reduce((a,l)=>a+l.length*9*LH+1.2,0)+2;need(Math.min(h,250));fill(bg);doc.roundedRect(M,y,TW,h,2,2,'F');y+=2.5;put([g.t],M+4,9,true,c);y+=0.5;its.forEach(l=>{fill(c);doc.circle(M+5.5,y+1.6,0.7,'F');put(l,M+8,9,false,INK);y+=1.2});y+=4});y+=2};
+    side('Anotações',ANO,TINT,NAVY);side('Pontos fortes',POS,[216,246,221],GRN);side('Pontos de atenção',NEG,[254,236,214],ORG)}
+  // rodapé
+  const n=doc.getNumberOfPages();
+  for(let i=1;i<=n;i++){doc.setPage(i);stroke(LINE);doc.setLineWidth(0.3);doc.line(M,288,M+TW,288);doc.setFont('helvetica','normal');doc.setFontSize(8);ink(SOFT);doc.text('Programação e Robótica - Observação de aula',M,292.5);doc.text('Página '+i+' de '+n,M+TW,292.5,{align:'right'})}
+  try{
+    const fn=['#'+f.id,f.prof,f.data?f.data.split('-').reverse().join('-'):''].filter(x=>x&&x!=='#').join(' - ').replace(/[\\\/:*?"<>|]/g,'')+' - Observação.pdf';
+    doc.setProperties({title:fn.replace(/\.pdf$/,''),subject:'Relatório de observação de aula',creator:'Observação de aula',keywords:'OBSERVACAO-DE-AULA:v1:'+btoa(unescape(encodeURIComponent(JSON.stringify({v:1,S}))))});
+    if(prev)return doc.output('blob');
+    if(dl)await dl.save({filename:fn,data:doc.output('arraybuffer')});else doc.save(fn);
+    flash('PDF salvo.');
+  }catch(e){flash(e&&e.code==='declined'?'Download cancelado.':'Não foi possível salvar o PDF.',1)}
+}
+
+const EXEMPLO=()=>{const q={};Q.forEach(o=>q[o.k]={v:false,done:false,x:{},o:{r:null,c:''}});
+  const yes=(k,r,c)=>{q[k]={v:true,done:true,x:{},o:{r,c}}};
+  yes('falta','sim','O projeto base foi enviado por link ao aluno que faltou.');yes('proj','sim','');yes('cod','sim','');yes('arq','parte','Uma das imagens não estava no link e o aluno precisou pedir.');
+  const B=(min,title,desc,link,risks,o)=>({min,title,desc,links:[link],closed:false,risks:risks.map(([p,s])=>({p,s})),o:Object.assign({r:null,n:[],m:[],c:''},o)});
+  return{turma:'#10000 - CYO2 / JUN / SEG / 08:30 / Maria Souza',dur:90,drive:'https://exemplo.com.br/aula-variaveis',q,
+  f:{id:'10000',mod:'CYO2',mes:'JUN',dia:'SEG',hora:'08:30',prof:'Maria Souza',data:'2026-11-02',obs:'Carlos Menezes',dobs:'2026-11-02',tipo:'ao vivo'},
+  blocks:[
+   B(10,'Boas-vindas e revisão','Recebe a turma, retoma o que foi visto na aula passada e apresenta o objetivo do dia: criar um jogo de adivinhação.','',[['Aluno que faltou chega sem o projeto','Entregar o projeto inicial por link para ele acompanhar']],{r:'sim',n:['Recepção acolhedora, chamou os alunos pelo nome.','A revisão com perguntas rápidas deixou a turma participativa.']}),
+   B(20,'Variáveis: guardando informações','Explica o que é uma variável usando o placar do jogo. Os alunos criam as variáveis pontos e vidas.','https://exemplo.com.br/aula-variaveis/codigos',[['Alunos confundem o nome da variável com texto','Mostrar na tela o exemplo com e sem aspas']],{r:'sim',n:['Usar o placar do jogo como exemplo deixou o conceito fácil de entender.'],m:['Antes de seguir, pedir que um aluno explique com as próprias palavras.']}),
+   B(30,'Condicionais: se e senão','Os alunos usam se e senão para dizer se o palpite está certo, alto ou baixo.','https://exemplo.com.br/aula-variaveis/condicionais',[['Alunos esquecem de fechar a chave da condicional','Usar o destaque de chaves do editor']],{r:'parte',n:['Boa mediação quando os alunos travavam.'],m:['O bloco passou do tempo previsto em cerca de 8 minutos.','Vários alunos demoraram para achar a chave de fechamento da condicional.'],c:'Conversar sobre dividir condicionais em duas partes menores.'}),
+   B(20,'Desafio: personalize o jogo','Em duplas, os alunos criam uma regra nova para o jogo e testam com os colegas.','',[],{r:'parte',m:['Nem todas as duplas terminaram o desafio no tempo previsto.']}),
+   B(10,'Fechamento','Os alunos compartilham o que criaram e o professor retoma o que foi aprendido.','',[],{r:'nao',m:['Fechamento muito curto, sem retomada do conteúdo.'],c:'Combinar um roteiro de três perguntas para o fechamento.'})],
+  succ:[{t:'Todos os alunos criaram pelo menos duas variáveis',r:'sim',c:''},{t:'Os alunos usaram se e senão no jogo',r:'parte',c:'Duas duplas precisaram de ajuda até o fim.'},{t:'Cada dupla personalizou o jogo com uma regra nova',r:'parte',c:'Algumas duplas não terminaram o desafio por falta de tempo.'}],
+  mo:{r:'sim',c:'O link abriu sem problemas em todas as máquinas.'},
+  g:{f:['Aula bem planejada, com um jogo que conecta com o interesse dos alunos.','Boa relação com a turma e mediação cuidadosa.'],m:['Gestão do tempo nos blocos de condicionais e de fechamento.'],c:'Aula muito boa no geral. Vale conversar sobre ritmo e fechamento.'}}};
+async function exemploPdf(){
+  if(!(window.jspdf&&window.jspdf.jsPDF))return null;
+  const bak=JSON.stringify(S),rest=o=>{Object.keys(S).forEach(k=>delete S[k]);Object.assign(S,o)};
+  try{rest(EXEMPLO());return await savePdf(true)}finally{rest(JSON.parse(bak))}
+}
+document.addEventListener('change',e=>{const a=e.target.dataset.act;if(a&&a.startsWith('done:')){S.q[a.split(':')[1]].done=e.target.checked;upd()}});
+render();document.querySelectorAll('[data-path]').forEach(e=>{const v=get(e.dataset.path);if(v!=null&&e.value==='')e.value=v});
+
+(()=>{const g=document.getElementById('guia'),ob=document.getElementById('gopen');let last;
+const open=()=>{last=document.activeElement;g.hidden=false;document.body.style.overflow='hidden';g.querySelector('.gv-body').scrollTop=0;document.getElementById('gclose').focus()};
+const close=()=>{g.hidden=true;document.body.style.overflow='';if(last&&last.focus)last.focus()};
+ob.addEventListener('click',open);document.getElementById('gclose').addEventListener('click',close);
+g.addEventListener('click',e=>{if(e.target===g)close()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!g.hidden)close()});
+g.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.go).scrollIntoView({behavior:'smooth',block:'start'})))})();
+
+(()=>{const $$=id=>document.getElementById(id),box=document.querySelector('.gv-box');let url=null,blob=null;
+const back=()=>{$$('gview').hidden=true;document.querySelector('.gv-body').hidden=false;box.classList.remove('v');$$('gtit').textContent='Guia de observação de aula'};
+$$('gback').addEventListener('click',back);$$('gopen').addEventListener('click',back);
+$$('gex').addEventListener('click',async()=>{
+  const msg=t=>{$$('gvmsg').textContent=t},pg=$$('gpages');
+  document.querySelector('.gv-body').hidden=true;$$('gview').hidden=false;box.classList.add('v');$$('gtit').textContent='Exemplo de observação de aula';
+  pg.innerHTML='';msg('Gerando o exemplo…');
+  try{
+    if(!url){const b=await exemploPdf();if(!b){msg('Não foi possível carregar o gerador de PDF. Confira a conexão e tente de novo.');return}url=URL.createObjectURL(b);blob=b}
+    $$('gtab').href=url;$$('gdl').href=url;
+    if(!window.pdfjsLib){msg('Não consegui exibir o PDF aqui. Use "Abrir em nova aba" ou "Baixar PDF" para ver o exemplo.');return}
+    pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdf=await pdfjsLib.getDocument({data:new Uint8Array(await blob.arrayBuffer())}).promise;
+    const w=Math.min(pg.clientWidth-32,720),dpr=Math.min(window.devicePixelRatio||1,2);
+    for(let n=1;n<=pdf.numPages;n++){msg('Carregando página '+n+' de '+pdf.numPages+'…');
+      const page=await pdf.getPage(n),v0=page.getViewport({scale:1}),vp=page.getViewport({scale:w/v0.width*dpr}),c=document.createElement('canvas');
+      c.width=vp.width;c.height=vp.height;c.style.width=w+'px';c.style.height=(vp.height/dpr)+'px';pg.appendChild(c);
+      await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise}
+    msg('Aula fictícia, criada só para este exemplo.');
+  }catch(e){msg('Não consegui exibir o PDF aqui. Use "Abrir em nova aba" ou "Baixar PDF" para ver o exemplo.')}
+});
+})();
+</script>
+</body>
+</html>
