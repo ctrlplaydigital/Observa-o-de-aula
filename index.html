@@ -116,6 +116,8 @@ select{width:100%;font:inherit;color:var(--tinta);background:#fff;border:1px sol
 .gv-pages canvas{background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.15);max-width:100%}
 .gv-vbar .l{display:flex;gap:16px;align-items:center}
 .gv-view p{margin:0;padding:10px 24px;font-size:.8125rem;color:var(--suave)}
+input.islink{color:#1a5fd0;text-decoration:underline;cursor:pointer}
+input.islink:hover{background:#f3f7ff}
 </style>
 </head>
 <body>
@@ -306,7 +308,13 @@ function render(){
   lock();upd();
 }
 const PLAN=/^(turma|dur|drive|f\.(id|mod|mes|dia|hora|prof|data)|blocks\.\d+\.(min|title|desc|links|risks)(\..*)?|succ\.\d+\.t)$/;
-function lock(){const L=!!S.locked;document.querySelectorAll('[data-path]').forEach(e=>{e.readOnly=(L&&PLAN.test(e.dataset.path))||(e.dataset.path==='f.dobs'&&S.f.tipo==='ao vivo')});document.querySelectorAll('[data-act]').forEach(b=>{if(/^(addblk|delblk|addlink|dellink|addrk|delrk|addsucc|delsucc)\b/.test(b.dataset.act))b.hidden=L})}
+function lnk(v){v=(v||'').trim();if(/^https?:\/\/\S+$/i.test(v))return v;if(/^www\.\S+$/i.test(v))return 'https://'+v;return null}
+function marcaLinks(){document.querySelectorAll('[data-path]').forEach(e=>{const ok=e.readOnly&&/^(drive|blocks\.\d+\.links\.\d+)$/.test(e.dataset.path)&&lnk(e.value);e.classList.toggle('islink',!!ok);if(ok)e.title='Clique para abrir o link';else e.removeAttribute('title')})}
+function abreLink(e){const t=e.target;if(t.classList&&t.classList.contains('islink')){const u=lnk(t.value);if(u)window.open(u,'_blank','noopener')}}
+document.addEventListener('click',abreLink);
+document.addEventListener('keydown',e=>{if(e.key==='Enter')abreLink(e)});
+function lock(){lock0();marcaLinks()}
+function lock0(){const L=!!S.locked;document.querySelectorAll('[data-path]').forEach(e=>{e.readOnly=(L&&PLAN.test(e.dataset.path))||(e.dataset.path==='f.dobs'&&S.f.tipo==='ao vivo')});document.querySelectorAll('[data-act]').forEach(b=>{if(/^(addblk|delblk|addlink|dellink|addrk|delrk|addsucc|delsucc)\b/.test(b.dataset.act))b.hidden=L})}
 function upd(){
   const dur=+S.dur||90;let t=0;
   S.blocks.forEach((b,i)=>{const m=+b.min||0;const e=document.querySelector(`[data-st="${i}"]`);if(e)e.textContent=`${t}–${t+m} min`;t+=m});
@@ -366,6 +374,7 @@ function applyPlan(d){
   S.mo=no(P.mo);S.g={f:strs(P.g&&P.g.f),m:strs(P.g&&P.g.m),c:String(P.g&&P.g.c||'')};
   render();
   document.querySelectorAll('[data-path]').forEach(e=>{const v=get(e.dataset.path);e.value=v==null?'':v});
+  lock();
   $('#tw').hidden=true;
 }
 $('#imp').addEventListener('change',async e=>{
